@@ -1,0 +1,205 @@
+API RECON & DISCOVERY
+Endpoint Discovery
+- [ ] Enumerate all API endpoints (Swagger, JS files, mobile apps, GraphQL, versioned APIs)
+- [ ] Fuzz for hidden endpoints (e.g., /v1/, /internal/, /admin/)
+- [ ] Discover deprecated API versions
+- [ ] Enumerate subdomains hosting APIs
+- [ ] Test different HTTP methods (GET → DELETE / PUT / PATCH)
+Parameter Discovery
+- [ ] Fuzz for hidden parameters (&admin=true, &role=superuser)
+- [ ] Add unexpected parameters
+- [ ] Test nested JSON object manipulation
+- [ ] Attempt HTTP Parameter Pollution
+- [ ] Modify Referrer / Origin headers
+
+AUTHENTICATION TESTING
+Basic Authentication Controls
+- [ ] Enforce strong password policy
+- [ ] Test account lockout after failed attempts
+- [ ] Test max retry & rate limiting
+- [ ] Ensure tokens invalidated on logout
+- [ ] Test reuse of old session tokens
+- [ ] Ensure all endpoints require authentication where appropriate
+Session Management
+- [ ] Session ID rotates after login (Session Fixation)
+- [ ] Session invalidation on logout
+- [ ] Test concurrent session handling
+- [ ] Check Secure, HttpOnly, SameSite cookie flags
+JWT Testing
+- [ ] Test alg=none attack
+- [ ] Attempt JWT signature brute-force
+- [ ] Test weak JWT secrets
+- [ ] Ensure algorithm enforced server-side
+- [ ] Check token expiration (TTL / RTTL)
+- [ ] Verify token invalidation on logout
+- [ ] Ensure no sensitive data in JWT payload
+- [ ] Check for token replay vulnerability
+OAuth Security
+- [ ] Validate redirect_uri against safelist
+- [ ] Ensure response_type=code (avoid implicit flow)
+- [ ] Validate state parameter against CSRF
+- [ ] Test authorization code reuse
+- [ ] Validate scope enforcement
+- [ ] Test privilege escalation via scope manipulation
+
+AUTHORIZATION TESTING
+Broken Object Level Authorization (BOLA / IDOR)
+- [ ] Modify object IDs in URL
+- [ ] Modify object IDs in body
+- [ ] Modify object IDs in headers
+- [ ] Access other user resources
+- [ ] Verify multi-step workflow authorization
+- [ ] Compare admin vs user responses
+Broken Function Level Authorization (BFLA)
+- [ ] Change HTTP method (GET → DELETE)
+- [ ] Access admin endpoints as normal user
+- [ ] Attempt internal/debug endpoints
+- [ ] Modify role fields in request body
+- [ ] Attempt privilege escalation (role=admin)
+Object Property Level Authorization
+- [ ] Modify restricted properties (balance, role, verified)
+- [ ] Inject admin flags
+- [ ] Attempt mass assignment vulnerabilities
+
+INPUT VALIDATION & INJECTION TESTING
+Injection Attacks
+- [ ] SQL Injection
+- [ ] NoSQL Injection
+- [ ] Command Injection
+- [ ] SSRF
+- [ ] Path Traversal
+- [ ] XML External Entity (XXE)
+- [ ] YAML deserialization attacks
+- [ ] Remote Code Execution
+Input Handling
+- [ ] Validate content-type headers
+- [ ] Validate Accept header (406 if invalid)
+- [ ] Enforce proper HTTP methods (405 if invalid)
+- [ ] Test file upload handling
+- [ ] Test large payload submission
+- [ ] Test JSON structure manipulation
+- [ ] Test boundary conditions
+GraphQL-Specific
+- [ ] Disable introspection in production
+- [ ] Query depth limiting
+- [ ] Query cost analysis
+- [ ] Alias overloading abuse
+- [ ] Batch query abuse
+
+BUSINESS LOGIC TESTING
+Workflow Abuse
+- [ ] Bypass payment steps
+- [ ] Apply multiple discount codes
+- [ ] Reuse coupon codes
+- [ ] Skip verification steps
+- [ ] Bypass approval flows
+- [ ] Reserve inventory indefinitely
+Automation & Abuse
+- [ ] Account creation abuse
+- [ ] Script entire workflow
+- [ ] CAPTCHA bypass
+- [ ] Bulk order submission
+- [ ] Test race conditions
+
+DATA EXPOSURE TESTING
+Excessive Data Exposure
+- [ ] Check for password hashes
+- [ ] Check internal IDs exposure
+- [ ] Check API keys in responses
+- [ ] Compare admin vs user data exposure
+- [ ] Check verbose error messages
+Sensitive Data Leakage
+- [ ] No credentials in URL
+- [ ] No tokens in query strings
+- [ ] Proper response filtering
+- [ ] Test debug mode exposure
+
+RESOURCE CONSUMPTION & DOS
+Unrestricted Resource Consumption
+- [ ] Send concurrent requests
+- [ ] Test lack of pagination
+- [ ] Test large limit values
+- [ ] Submit large JSON payloads
+- [ ] Test report generation endpoints
+- [ ] Test background job abuse
+Rate Limiting
+- [ ] Per IP rate limiting
+- [ ] Per user/API key rate limiting
+- [ ] Sliding window implementation
+- [ ] Exponential backoff enforcement
+- [ ] Rate limit bypass attempts
+
+SECURITY HEADERS & TRANSPORT SECURITY
+- [ ] Enforce HTTPS (TLS 1.2+)
+- [ ] Validate Host header vs SNI
+- [ ] HSTS enabled
+- [ ] X-Content-Type-Options: nosniff
+- [ ] X-Frame-Options: deny
+- [ ] Content-Security-Policy header
+- [ ] Remove fingerprinting headers
+- [ ] Proper content-type in responses
+
+INFRASTRUCTURE & CONFIGURATION
+- [ ] Disable directory listing
+- [ ] Debug mode disabled
+- [ ] Non-executable stacks enabled
+- [ ] UUID instead of incremental IDs
+- [ ] Use /me/ pattern instead of /user/123
+- [ ] Safelist IPs for private APIs
+- [ ] CDN for file uploads
+- [ ] Worker queues for heavy processing
+
+SECRETS & KEY MANAGEMENT
+- [ ] Rotate secrets regularly
+- [ ] No secrets in code repository
+- [ ] Use secret manager
+- [ ] HSM for signing operations
+- [ ] Implement secret scanning in CI/CD
+
+CSRF TESTING
+- [ ] Test cookie-based auth for CSRF
+- [ ] Test SameSite attribute
+- [ ] Validate CSRF tokens
+- [ ] Cross-origin request testing
+
+CI/CD & DEPENDENCY SECURITY
+- [ ] Static code analysis
+- [ ] Dynamic security testing
+- [ ] Dependency vulnerability scanning
+- [ ] Code review process
+- [ ] Rollback strategy
+- [ ] AV scan for third-party components
+
+MONITORING & DETECTION
+- [ ] Centralized logging
+- [ ] Sensitive data redaction in logs
+- [ ] Traffic monitoring
+- [ ] IDS/IPS
+- [ ] Alerting (Slack, Email, SMS, SIEM)
+- [ ] Monitor abnormal API usage patterns
+
+ZERO TRUST & ADVANCED CONTROLS
+- [ ] Mutual TLS (mTLS)
+- [ ] Short-lived tokens
+- [ ] Request signing
+- [ ] Validate internal service calls
+- [ ] Validate service-to-service communication
+
+Suggested Testing Tools
+- [ ] Burp Suite
+- [ ] Postman
+- [ ] OWASP ZAP
+- [ ] ffuf
+- [ ] jwt_tool
+- [ ] OAuth Debugger
+- [ ] Custom scripts
+- [ ] GraphQL Voyager
+- [ ] K6 (Load testing)
+
+This Checklist Covers
+* OWASP API Top 10
+* OWASP Top 10
+* Business logic abuse
+* Enterprise-grade API architecture
+* DevSecOps integration
+* Zero Trust principles
